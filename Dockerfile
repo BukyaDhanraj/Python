@@ -1,20 +1,14 @@
-# Use an official Node.js runtime as a parent image
-FROM node:16-alpine
+# Use the official Python image from Docker Hub
+FROM python:3.9-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json if they exist
-COPY package*.json ./
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Install dependencies
-RUN npm install
+# Install any necessary dependencies (if you have requirements.txt)
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application files
-COPY . .
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Command to run the application
-CMD ["node", "Pythonproject.py"]
+# Run the Python script when the container starts
+CMD ["python", "Pythonprogram.py"]
